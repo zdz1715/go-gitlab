@@ -12,7 +12,8 @@ import (
 func main() {
 	// 直接设置token
 	credential := &gitlab.TokenCredential{
-		Endpoint:    gitlab.CloudEndpoint,
+		// default endpoint: https://gitlab.com
+		//Endpoint: gitlab.CloudEndpoint,
 		AccessToken: "token",
 	}
 

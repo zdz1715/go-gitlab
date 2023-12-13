@@ -14,7 +14,8 @@ func main() {
 	// OAuth密码模式
 	// docs: https://docs.gitlab.com/ee/api/oauth2.html#resource-owner-password-credentials-flow
 	credential := &gitlab.PasswordCredential{
-		Endpoint: gitlab.CloudEndpoint,
+		// default endpoint: https://gitlab.com
+		//Endpoint: gitlab.CloudEndpoint,
 		Username: "YourUsername",
 		Password: "YourPassword",
 	}

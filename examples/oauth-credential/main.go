@@ -18,7 +18,8 @@ func main() {
 	clientSecret := "YourClientSecret"
 	redirectURI := "http://127.0.0.1"
 	credential := &gitlab.OAuthCredential{
-		Endpoint:     gitlab.CloudEndpoint,
+		// default endpoint: https://gitlab.com
+		//Endpoint: gitlab.CloudEndpoint,
 		ClientID:     clientID,
 		ClientSecret: clientSecret,
 		RedirectURI:  redirectURI,

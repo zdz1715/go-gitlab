@@ -35,7 +35,8 @@ func main() {
 	clientSecret := "YourClientSecret"
 	redirectURI := "http://127.0.0.1"
 	credential := &gitlab.OAuthCredential{
-		Endpoint:     gitlab.CloudEndpoint,
+		// default endpoint: https://gitlab.com
+		//Endpoint: gitlab.CloudEndpoint,
 		ClientID:     clientID,
 		ClientSecret: clientSecret,
 		RedirectURI:  redirectURI,
@@ -93,7 +94,6 @@ func main() {
 	}
 
 }
-
 ```
 
 ### OAuth密码模式
@@ -114,7 +114,8 @@ func main() {
 	// OAuth密码模式
 	// docs: https://docs.gitlab.com/ee/api/oauth2.html#resource-owner-password-credentials-flow
 	credential := &gitlab.PasswordCredential{
-		Endpoint: gitlab.CloudEndpoint,
+		// default endpoint: https://gitlab.com
+		//Endpoint: gitlab.CloudEndpoint,
 		Username: "YourUsername",
 		Password: "YourPassword",
 	}
@@ -140,6 +141,7 @@ func main() {
 	fmt.Printf("version: %+v\ntoken: %s\n", ver, tk.AccessToken)
 }
 
+
 ```
 ### 直接设置token
 ```go
@@ -157,7 +159,8 @@ import (
 func main() {
 	// 直接设置token
 	credential := &gitlab.TokenCredential{
-		Endpoint:    gitlab.CloudEndpoint,
+		// default endpoint: https://gitlab.com
+		//Endpoint: gitlab.CloudEndpoint,
 		AccessToken: "token",
 	}
 
@@ -180,7 +183,6 @@ func main() {
 	fmt.Printf("version: %+v\n", ver)
 
 }
-
 ```
 
 ## ToDo
