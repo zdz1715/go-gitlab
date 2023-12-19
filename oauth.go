@@ -36,6 +36,9 @@ type store struct {
 }
 
 func (s *store) value() *AccessToken {
+	if s.val != nil {
+		s.val.ExpiresIn = int64(s.expire.Sub(time.Now()).Seconds())
+	}
 	return s.val
 }
 
