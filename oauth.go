@@ -58,8 +58,12 @@ func (s *store) IsExpired() bool {
 }
 
 func (oa *OAuthService) GenerateAuthorizeURL(clientId, redirectUri, scope string) string {
+	endpoint := oa.client.cc.Endpoint()
+	if oa.credential != nil && oa.credential.GetEndpoint() != "" {
+		endpoint = oa.credential.GetEndpoint()
+	}
 	return fmt.Sprintf("%s/oauth/authorize?response_type=code&client_id=%s&redirect_uri=%s&scope=%s",
-		oa.client.cc.Endpoint(),
+		endpoint,
 		clientId,
 		url.QueryEscape(redirectUri),
 		url.QueryEscape(scope),
