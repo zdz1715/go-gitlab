@@ -26,12 +26,12 @@ type TokenCredential struct {
 	AccessToken string    `json:"token" xml:"token"`
 }
 
-func (t *TokenCredential) GetEndpoint() string {
-	return t.Endpoint
-}
-
 func (t *TokenCredential) Body(opts *GetAccessTokenOptions) any {
 	return nil
+}
+
+func (t *TokenCredential) GetEndpoint() string {
+	return t.Endpoint
 }
 
 func (t *TokenCredential) GenerateCallOptions(token *AccessToken) (*ghttp.CallOptions, error) {
