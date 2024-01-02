@@ -12,9 +12,6 @@ import (
 // GitLab API Docs: https://docs.gitlab.com/ee/api/users.html
 type UsersService service
 
-// add-ssh-key
-// GitLab API Docs: https://docs.gitlab.com/ee/api/users.html#add-ssh-key
-
 type AddSSHKeyOptions struct {
 	Key       *string `json:"key"`
 	Title     *string `json:"title"`
@@ -31,6 +28,8 @@ type SSHKey struct {
 	UsageType *string    `json:"usage_type"` // version: 15.7+
 }
 
+// AddSSHKey
+// GitLab API Docs: https://docs.gitlab.com/ee/api/users.html#add-ssh-key
 func (u *UsersService) AddSSHKey(ctx context.Context, req *AddSSHKeyOptions) (*SSHKey, error) {
 	const apiEndpoint = "/api/v4/user/keys"
 	var key SSHKey
@@ -40,6 +39,8 @@ func (u *UsersService) AddSSHKey(ctx context.Context, req *AddSSHKeyOptions) (*S
 	return &key, nil
 }
 
+// DeleteSSHKey
+// GitLab API Docs: https://docs.gitlab.com/ee/api/users.html#delete-ssh-key-for-current-user
 func (u *UsersService) DeleteSSHKey(ctx context.Context, keyId string) error {
 	apiEndpoint := fmt.Sprintf("/api/v4/user/keys/%s", keyId)
 	if err := u.client.InvokeByCredential(ctx, http.MethodDelete, apiEndpoint, nil, nil); err != nil {
