@@ -27,9 +27,9 @@ type Branch struct {
 // GitLab API docs:
 // https://docs.gitlab.com/ee/api/branches.html#list-repository-branches
 type ListBranchesOptions struct {
-	*ListOptions
-	Search *string `json:"search,omitempty" query:"search"`
-	Regex  *string `json:"regex,omitempty" query:"regex"`
+	*ListOptions `query:",inline"`
+	Search       *string `query:"search,omitempty"`
+	Regex        *string `query:"regex,omitempty"`
 }
 
 // ListBranches gets a list of repository branches from a project, sorted by
@@ -51,8 +51,8 @@ func (s *BranchesService) ListBranches(ctx context.Context, projectId string, op
 // GitLab API docs:
 // https://docs.gitlab.com/ee/api/branches.html#create-repository-branch
 type CreateBranchOptions struct {
-	Branch *string `json:"branch,omitempty" query:"branch"`
-	Ref    *string `json:"ref,omitempty" query:"ref"`
+	Branch *string `json:"branch,omitempty"`
+	Ref    *string `json:"ref,omitempty"`
 }
 
 func (s *BranchesService) CreateBranch(ctx context.Context, projectId string, opts *CreateBranchOptions) (*Branch, error) {

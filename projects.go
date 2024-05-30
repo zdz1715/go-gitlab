@@ -15,33 +15,32 @@ type ProjectsService service
 //
 // GitLab API docs: https://docs.gitlab.com/ee/api/projects.html#list-all-projects
 type ListProjectsOptions struct {
-	*ListOptions
+	*ListOptions `query:",inline"`
 
-	Archived                 *bool             `query:"archived" json:"archived,omitempty"`
-	IDAfter                  *int              `query:"id_after" json:"id_after,omitempty"`
-	IDBefore                 *int              `query:"id_before" json:"id_before,omitempty"`
-	Imported                 *bool             `query:"imported" json:"imported,omitempty"`
-	LastActivityAfter        *time.Time        `query:"last_activity_after" json:"last_activity_after,omitempty"`
-	LastActivityBefore       *time.Time        `query:"last_activity_before" json:"last_activity_before,omitempty"`
-	Membership               *bool             `query:"membership" json:"membership,omitempty"`
-	MinAccessLevel           *AccessLevelValue `query:"min_access_level" json:"min_access_level,omitempty"`
-	OrderBy                  *string           `query:"order_by" json:"order_by,omitempty"`
-	Owned                    *bool             `query:"owned" json:"owned,omitempty"`
-	RepositoryChecksumFailed *bool             `query:"repository_checksum_failed" json:"repository_checksum_failed,omitempty"`
-	RepositoryStorage        *string           `query:"repository_storage" json:"repository_storage,omitempty"`
-	Search                   *string           `query:"search" json:"search,omitempty"`
-	SearchNamespaces         *bool             `query:"search_namespaces" json:"search_namespaces,omitempty"`
-	Simple                   *bool             `query:"simple" json:"simple,omitempty"`
-	Sort                     *string           `query:"sort" json:"sort,omitempty"`
-	Starred                  *bool             `query:"starred" json:"starred,omitempty"`
-	Statistics               *bool             `query:"statistics" json:"statistics,omitempty"`
-	Topic                    *string           `query:"topic" json:"topic,omitempty"`
-	Visibility               *VisibilityValue  `query:"visibility" json:"visibility,omitempty"`
-	WikiChecksumFailed       *bool             `query:"wiki_checksum_failed" json:"wiki_checksum_failed,omitempty"`
-	WithCustomAttributes     *bool             `query:"with_custom_attributes" json:"with_custom_attributes,omitempty"`
-	WithIssuesEnabled        *bool             `query:"with_issues_enabled" json:"with_issues_enabled,omitempty"`
-	WithMergeRequestsEnabled *bool             `query:"with_merge_requests_enabled" json:"with_merge_requests_enabled,omitempty"`
-	WithProgrammingLanguage  *string           `query:"with_programming_language" json:"with_programming_language,omitempty"`
+	Archived                 *bool             `query:"archived,omitempty"`
+	IDAfter                  *int              `query:"id_after,omitempty"`
+	IDBefore                 *int              `query:"id_before,omitempty"`
+	Imported                 *bool             `query:"imported,omitempty"`
+	LastActivityAfter        *time.Time        `query:"last_activity_after,omitempty"`
+	LastActivityBefore       *time.Time        `query:"last_activity_before,omitempty"`
+	Membership               *bool             `query:"membership,omitempty"`
+	MinAccessLevel           *AccessLevelValue `query:"min_access_level,omitempty"`
+	OrderBy                  *string           `query:"order_by,omitempty"`
+	Owned                    *bool             `query:"owned,omitempty"`
+	RepositoryChecksumFailed *bool             `query:"repository_checksum_failed,omitempty"`
+	RepositoryStorage        *string           `query:"repository_storage,omitempty"`
+	Search                   *string           `query:"search,omitempty"`
+	SearchNamespaces         *bool             `query:"search_namespaces,omitempty"`
+	Simple                   *bool             `query:"simple,omitempty"`
+	Starred                  *bool             `query:"starred,omitempty"`
+	Statistics               *bool             `query:"statistics,omitempty"`
+	Topic                    *string           `query:"topic,omitempty"`
+	Visibility               *VisibilityValue  `query:"visibility,omitempty"`
+	WikiChecksumFailed       *bool             `query:"wiki_checksum_failed,omitempty"`
+	WithCustomAttributes     *bool             `query:"with_custom_attributes,omitempty"`
+	WithIssuesEnabled        *bool             `query:"with_issues_enabled,omitempty"`
+	WithMergeRequestsEnabled *bool             `query:"with_merge_requests_enabled,omitempty"`
+	WithProgrammingLanguage  *string           `query:"with_programming_language,omitempty"`
 }
 
 // Project represents a GitLab project.
@@ -287,22 +286,22 @@ func (ps *ProjectsService) ListProjects(ctx context.Context, req *ListProjectsOp
 // GitLab API docs: https://docs.gitlab.com/ee/api/projects.html#add-project-hook
 // GitLab API docs: https://docs.gitlab.com/ee/api/projects.html#edit-project-hook
 type ProjectHookOptions struct {
-	URL                      *string `query:"url" json:"url,omitempty"`
-	ConfidentialIssuesEvents *bool   `query:"confidential_issues_events" json:"confidential_issues_events,omitempty"`
-	ConfidentialNoteEvents   *bool   `query:"confidential_note_events" json:"confidential_note_events,omitempty"`
-	DeploymentEvents         *bool   `query:"deployment_events" json:"deployment_events,omitempty"`
-	EnableSSLVerification    *bool   `query:"enable_ssl_verification" json:"enable_ssl_verification,omitempty"`
-	IssuesEvents             *bool   `query:"issues_events" json:"issues_events,omitempty"`
-	JobEvents                *bool   `query:"job_events" json:"job_events,omitempty"`
-	MergeRequestsEvents      *bool   `query:"merge_requests_events" json:"merge_requests_events,omitempty"`
-	NoteEvents               *bool   `query:"note_events" json:"note_events,omitempty"`
-	PipelineEvents           *bool   `query:"pipeline_events" json:"pipeline_events,omitempty"`
-	PushEvents               *bool   `query:"push_events" json:"push_events,omitempty"`
-	PushEventsBranchFilter   *string `query:"push_events_branch_filter" json:"push_events_branch_filter,omitempty"`
-	ReleasesEvents           *bool   `query:"releases_events" json:"releases_events,omitempty"`
-	TagPushEvents            *bool   `query:"tag_push_events" json:"tag_push_events,omitempty"`
-	Token                    *string `query:"token" json:"token,omitempty"`
-	WikiPageEvents           *bool   `query:"wiki_page_events" json:"wiki_page_events,omitempty"`
+	URL                      *string `json:"url,omitempty"`
+	ConfidentialIssuesEvents *bool   `json:"confidential_issues_events,omitempty"`
+	ConfidentialNoteEvents   *bool   `json:"confidential_note_events,omitempty"`
+	DeploymentEvents         *bool   `json:"deployment_events,omitempty"`
+	EnableSSLVerification    *bool   `json:"enable_ssl_verification,omitempty"`
+	IssuesEvents             *bool   `json:"issues_events,omitempty"`
+	JobEvents                *bool   `json:"job_events,omitempty"`
+	MergeRequestsEvents      *bool   `json:"merge_requests_events,omitempty"`
+	NoteEvents               *bool   `json:"note_events,omitempty"`
+	PipelineEvents           *bool   `json:"pipeline_events,omitempty"`
+	PushEvents               *bool   `json:"push_events,omitempty"`
+	PushEventsBranchFilter   *string `json:"push_events_branch_filter,omitempty"`
+	ReleasesEvents           *bool   `json:"releases_events,omitempty"`
+	TagPushEvents            *bool   `json:"tag_push_events,omitempty"`
+	Token                    *string `json:"token,omitempty"`
+	WikiPageEvents           *bool   `json:"wiki_page_events,omitempty"`
 }
 
 // ProjectHook represents a project hook.

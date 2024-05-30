@@ -42,16 +42,16 @@ type CommitStats struct {
 //
 // GitLab API docs: https://docs.gitlab.com/ee/api/commits.html#list-repository-commits
 type ListCommitsOptions struct {
-	*ListOptions
-	RefName     *string    `json:"ref_name,omitempty" query:"ref_name"`
-	Since       *time.Time `json:"since,omitempty" query:"since"`
-	Until       *time.Time `json:"until,omitempty" query:"until"`
-	Path        *string    `json:"path,omitempty" query:"path"`
-	Author      *string    `json:"author,omitempty" query:"author"`
-	All         *bool      `json:"all,omitempty" query:"all"`
-	WithStats   *bool      `json:"with_stats,omitempty" query:"with_stats"`
-	FirstParent *bool      `json:"first_parent,omitempty" query:"first_parent"`
-	Trailers    *bool      `json:"trailers,omitempty" query:"trailers"`
+	*ListOptions `query:",inline"`
+	RefName      *string    `query:"ref_name,omitempty"`
+	Since        *time.Time `query:"since,omitempty"`
+	Until        *time.Time `query:"until,omitempty"`
+	Path         *string    `query:"path,omitempty"`
+	Author       *string    `query:"author,omitempty"`
+	All          *bool      `query:"all,omitempty"`
+	WithStats    *bool      `query:"with_stats,omitempty"`
+	FirstParent  *bool      `query:"first_parent,omitempty"`
+	Trailers     *bool      `query:"trailers,omitempty"`
 }
 
 // ListCommits gets a list of repository commits in a project.

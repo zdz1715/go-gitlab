@@ -13,8 +13,8 @@ import (
 type UsersService service
 
 type AddSSHKeyOptions struct {
-	Key       *string `json:"key"`
-	Title     *string `json:"title"`
+	Key       *string `json:"key,omitempty"`
+	Title     *string `json:"title,omitempty"`
 	ExpiresAt *string `json:"expires_at,omitempty"`
 	UsageType *string `json:"usage_type,omitempty"` // version: 15.7+
 }

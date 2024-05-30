@@ -13,8 +13,7 @@ type service struct {
 }
 
 type Options struct {
-	ClientOpts         []ghttp.ClientOption
-	InitSkipCredential bool
+	ClientOpts []ghttp.ClientOption
 }
 
 type Client struct {
@@ -49,12 +48,13 @@ func NewClient(credential Credential, opts *Options) (*Client, error) {
 	}
 
 	// 覆盖错误
-	clientOptions = append(clientOptions, ghttp.WithNot2xxError(&Error{}))
+	clientOptions = append(clientOptions,
+		ghttp.WithNot2xxError(func() ghttp.Not2xxError {
+			return new(Error)
+		}),
+	)
 
-	cc, err := ghttp.NewClient(context.Background(), clientOptions...)
-	if err != nil {
-		return nil, err
-	}
+	cc := ghttp.NewClient(clientOptions...)
 
 	c := &Client{
 		cc:   cc,
@@ -73,12 +73,10 @@ func NewClient(credential Credential, opts *Options) (*Client, error) {
 	c.Metadata = (*MetadataService)(&c.common)
 	c.Version = (*VersionService)(&c.common)
 
-	if opts.InitSkipCredential {
-		return c, nil
-	}
-
-	if err = c.SetCredential(credential); err != nil {
-		return nil, err
+	if credential != nil {
+		if err := c.SetCredential(credential); err != nil {
+			return nil, err
+		}
 	}
 
 	return c, nil
@@ -93,9 +91,7 @@ func (c *Client) SetCredential(credential Credential) error {
 		return err
 	}
 
-	if err := c.cc.SetEndpoint(credential.GetEndpoint()); err != nil {
-		return err
-	}
+	c.cc.SetEndpoint(credential.GetEndpoint())
 
 	if c.OAuth != nil {
 		c.OAuth.credential = credential
@@ -174,14 +170,14 @@ func (e *Error) Reset() {
 type ListOptions struct {
 	// GitLab API docs: https://docs.gitlab.com/ee/api/rest/index.html#offset-based-pagination
 	// For paginated result sets, page of results to retrieve.
-	Page int `query:"page" json:"page,omitempty"`
+	Page int `query:"page,omitempty" json:"page,omitempty"`
 	// For paginated result sets, the number of results to include per page.
-	PerPage int `query:"per_page" json:"per_page,omitempty"` // default: 20 max: 100
+	PerPage int `query:"per_page,omitempty" json:"per_page,omitempty"` // default: 20 max: 100
 
 	// GitLab API docs: https://docs.gitlab.com/ee/api/rest/index.html#keyset-based-pagination
-	Pagination string `query:"pagination" json:"pagination,omitempty"`
-	OrderBy    string `query:"order_by" json:"order_by,omitempty"`
-	Sort       Sort   `query:"sort" json:"sort,omitempty"`
+	Pagination string `query:"pagination,omitempty" json:"pagination,omitempty"`
+	OrderBy    string `query:"order_by,omitempty" json:"order_by,omitempty"`
+	Sort       Sort   `query:"sort,omitempty" json:"sort,omitempty"`
 }
 
 func NewListOptions(page int, perPage ...int) *ListOptions {

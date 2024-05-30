@@ -11,7 +11,7 @@ import (
 func TestProjectsService_ListProjects(t *testing.T) {
 	client, err := NewClient(testPasswordCredential, &Options{
 		ClientOpts: []ghttp.ClientOption{
-			ghttp.WithDebug(true),
+			ghttp.WithDebug(ghttp.DefaultDebug),
 		},
 	})
 
@@ -24,6 +24,7 @@ func TestProjectsService_ListProjects(t *testing.T) {
 		OrderBy:     goutils.Ptr("last_activity_at"),
 		Membership:  goutils.Ptr(true),
 		Search:      goutils.Ptr(""),
+		Visibility:  goutils.Ptr(PrivateVisibility),
 	})
 
 	if err != nil {
