@@ -1,6 +1,8 @@
 package gitlab
 
+import "os"
+
 var testPasswordCredential = &PasswordCredential{
-	Username: "zdzserver@163.com",
-	Password: "Ge8e9:75dyFgQfy",
+	Username: os.Getenv("TEST_GITLAB_USERNAME"),
+	Password: os.Getenv("TEST_GITLAB_PASSWORD"),
 }

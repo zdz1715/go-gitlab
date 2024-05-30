@@ -22,7 +22,7 @@ func main() {
 
 	client, err := gitlab.NewClient(credential, &gitlab.Options{
 		ClientOpts: []ghttp.ClientOption{
-			ghttp.WithDebug(true),
+			ghttp.WithDebug(ghttp.DefaultDebug),
 		},
 	})
 
